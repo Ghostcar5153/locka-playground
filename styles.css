@@ -1,0 +1,679 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    color: #e8eaed;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 15px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styles */
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, #64ffda, #00bcd4, #2196f3);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+    text-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: rgba(232, 234, 237, 0.8);
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #64ffda, #00bcd4);
+    width: 16.67%;
+    transition: width 0.5s ease;
+    border-radius: 3px;
+}
+
+/* Main Content */
+.main {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+/* Stage Styles */
+.stage {
+    display: none;
+    width: 100%;
+    animation: slideIn 0.6s ease-out;
+}
+
+.stage.active {
+    display: block;
+}
+
+.stage-card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stage-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+
+.stage-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.stage-number {
+    display: inline-block;
+    background: linear-gradient(45deg, #64ffda, #00bcd4);
+    color: #1a1a2e;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.stage-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #e8eaed;
+    margin-bottom: 8px;
+}
+
+.stage-content p {
+    font-size: 0.95rem;
+    color: rgba(232, 234, 237, 0.8);
+    margin-bottom: 18px;
+    line-height: 1.5;
+}
+
+/* Form Styles */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 600;
+    color: #e8eaed;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(255,255,255,0.1);
+    color: #e8eaed;
+}
+
+.input-group input::placeholder {
+    color: rgba(232, 234, 237, 0.5);
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #64ffda;
+    box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2);
+    background: rgba(255,255,255,0.15);
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.checkbox-group input {
+    margin-right: 8px;
+    width: auto;
+    accent-color: #64ffda;
+}
+
+.radio-group {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.radio-group input {
+    margin-right: 6px;
+    width: auto;
+    accent-color: #64ffda;
+}
+
+/* Button Styles */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #64ffda, #00bcd4);
+    color: #1a1a2e;
+    box-shadow: 0 4px 15px rgba(100, 255, 218, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(100, 255, 218, 0.4);
+}
+
+.btn-secondary {
+    background: rgba(255,255,255,0.1);
+    color: #e8eaed;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.btn-secondary:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-1px);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.button-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+/* Result Styles */
+.result {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    min-height: 35px;
+    border: 1px dashed rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.result.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.result.success {
+    background: rgba(76, 175, 80, 0.2);
+    border-color: rgba(76, 175, 80, 0.4);
+    color: #a5d6a7;
+}
+
+.result.error {
+    background: rgba(244, 67, 54, 0.2);
+    border-color: rgba(244, 67, 54, 0.4);
+    color: #ffcdd2;
+}
+
+.result code {
+    background: rgba(0,0,0,0.3) !important;
+    color: #64ffda !important;
+    padding: 4px 6px !important;
+    border-radius: 4px !important;
+    font-size: 0.75rem !important;
+}
+
+/* Explanation Styles */
+.explanation {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    border-left: 3px solid #64ffda;
+}
+
+.explanation h4 {
+    color: #64ffda;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.explanation p {
+    color: rgba(232, 234, 237, 0.8);
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+/* Navigation Styles */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding: 15px 0;
+    flex-shrink: 0;
+}
+
+.stage-indicator {
+    font-weight: 600;
+    color: rgba(232, 234, 237, 0.9);
+    font-size: 0.9rem;
+}
+
+/* Completion Styles */
+.completion-card {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(100, 255, 218, 0.1), rgba(0, 188, 212, 0.1));
+    color: #e8eaed;
+    border: 1px solid rgba(100, 255, 218, 0.2);
+}
+
+.completion-content h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #64ffda;
+}
+
+.completion-content > p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: rgba(232, 234, 237, 0.9);
+}
+
+.achievement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+    backdrop-filter: blur(10px);
+}
+
+.achievement-icon {
+    font-size: 2.5rem;
+}
+
+.achievement-text h3 {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+    color: #64ffda;
+}
+
+.achievement-text p {
+    color: rgba(232, 234, 237, 0.8);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.next-steps {
+    text-align: left;
+    margin: 20px 0;
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.next-steps h3 {
+    color: #64ffda;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+
+.next-steps ul {
+    list-style: none;
+}
+
+.next-steps li {
+    padding: 6px 0;
+    color: rgba(232, 234, 237, 0.9);
+    position: relative;
+    padding-left: 20px;
+    font-size: 0.9rem;
+}
+
+.next-steps li:before {
+    content: "▶";
+    position: absolute;
+    left: 0;
+    color: #64ffda;
+}
+
+.next-steps code {
+    background: rgba(0,0,0,0.4);
+    color: #64ffda;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.8rem;
+}
+
+.next-steps a {
+    color: #64ffda;
+    text-decoration: none;
+}
+
+.next-steps a:hover {
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Mobile-First Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+        min-height: 100vh;
+    }
+    
+    .header {
+        margin-bottom: 20px;
+    }
+    
+    .title {
+        font-size: 2rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .stage-card {
+        padding: 15px;
+        border-radius: 12px;
+    }
+    
+    .stage-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .main {
+        padding-top: 5px;
+    }
+    
+    .navigation {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 15px;
+        padding: 10px 0;
+    }
+    
+    .navigation .btn {
+        width: 100%;
+        max-width: 150px;
+    }
+    
+    .radio-group,
+    .button-group {
+        justify-content: center;
+    }
+    
+    .button-group .btn {
+        flex: 1;
+        min-width: 0;
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+    
+    .achievement {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .achievement-icon {
+        font-size: 2rem;
+    }
+    
+    .next-steps {
+        text-align: center;
+    }
+    
+    .explanation {
+        margin-top: 15px;
+        padding: 12px;
+    }
+    
+    .result {
+        font-size: 0.75rem;
+        padding: 10px;
+    }
+    
+    .result code {
+        font-size: 0.7rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 8px;
+    }
+    
+    .title {
+        font-size: 1.8rem;
+    }
+    
+    .stage-card {
+        padding: 12px;
+    }
+    
+    .stage-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 8px;
+        font-size: 0.85rem;
+        padding: 10px 16px;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .button-group .btn {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    
+    .radio-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .checkbox-group {
+        gap: 10px;
+    }
+    
+    .input-group input {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    .navigation {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(26, 26, 46, 0.95);
+        backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding: 10px;
+        margin: 0;
+        z-index: 1000;
+    }
+    
+    .container {
+        padding-bottom: 80px; /* Space for fixed navigation */
+    }
+    
+    .achievement-text h3 {
+        font-size: 1.1rem;
+    }
+    
+    .completion-content h2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Ultra-small screens */
+@media (max-width: 360px) {
+    .stage-card {
+        padding: 10px;
+    }
+    
+    .title {
+        font-size: 1.6rem;
+    }
+    
+    .stage-header h2 {
+        font-size: 1.1rem;
+    }
+    
+    .explanation {
+        padding: 10px;
+    }
+    
+    .achievement {
+        padding: 15px;
+    }
+}
+
+/* Landscape phone optimization */
+@media (orientation: landscape) and (max-height: 500px) {
+    .header {
+        margin-bottom: 15px;
+    }
+    
+    .title {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+    }
+    
+    .subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 15px;
+    }
+    
+    .stage-card {
+        padding: 12px;
+    }
+    
+    .stage-header {
+        margin-bottom: 15px;
+    }
+    
+    .stage-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .navigation {
+        margin-top: 10px;
+        padding: 8px 0;
+    }
+    
+    .explanation {
+        margin-top: 10px;
+        padding: 10px;
+    }
+    
+    .container {
+        padding: 8px;
+    }
+}

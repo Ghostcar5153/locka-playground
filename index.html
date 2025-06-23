@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locka Playground 🐺</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">🐺 Locka Playground</h1>
+            <p class="subtitle">Play with encryption, one stage at a time</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </header>
+
+        <main class="main">
+            <!-- Stage 1: Basic Encryption -->
+            <div class="stage active" id="stage1">
+                <div class="stage-card">
+                    <div class="stage-header">
+                        <span class="stage-number">Stage 1</span>
+                        <h2>Basic Text Encryption</h2>
+                    </div>
+                    <div class="stage-content">
+                        <p>Let's start with the basics! Encrypt some text using a password.</p>
+                        <div class="input-group">
+                            <label for="plaintext1">Secret Message:</label>
+                            <input type="text" id="plaintext1" placeholder="Enter your secret message..." value="Hello, World!">
+                        </div>
+                        <div class="input-group">
+                            <label for="password1">Password:</label>
+                            <input type="password" id="password1" placeholder="Enter a strong password..." value="mysecretkey">
+                        </div>
+                        <button class="btn btn-primary" onclick="encryptStage1()">🔒 Encrypt</button>
+                        <div class="result" id="result1"></div>
+                        <div class="explanation">
+                            <h4>💡 What's happening?</h4>
+                            <p>Locka uses AES-GCM encryption with PBKDF2 key derivation. Your password is transformed into a strong encryption key through 100,000 iterations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 2: Decryption -->
+            <div class="stage" id="stage2">
+                <div class="stage-card">
+                    <div class="stage-header">
+                        <span class="stage-number">Stage 2</span>
+                        <h2>Decrypt Your Message</h2>
+                    </div>
+                    <div class="stage-content">
+                        <p>Now let's decrypt what you just encrypted! Use the same password.</p>
+                        <div class="input-group">
+                            <label for="encrypted2">Encrypted Token:</label>
+                            <input type="text" id="encrypted2" placeholder="Paste your encrypted token here..." readonly>
+                        </div>
+                        <div class="input-group">
+                            <label for="password2">Password:</label>
+                            <input type="password" id="password2" placeholder="Enter the same password...">
+                        </div>
+                        <button class="btn btn-primary" onclick="decryptStage2()">🔓 Decrypt</button>
+                        <div class="result" id="result2"></div>
+                        <div class="explanation">
+                            <h4>💡 Token Format</h4>
+                            <p>Locka tokens start with "locka$webv1$" followed by the IV and encrypted data, all base64 encoded for safe transmission.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 3: Password Generation -->
+            <div class="stage" id="stage3">
+                <div class="stage-card">
+                    <div class="stage-header">
+                        <span class="stage-number">Stage 3</span>
+                        <h2>Generate Secure Passwords</h2>
+                    </div>
+                    <div class="stage-content">
+                        <p>Learn to generate cryptographically secure passwords with custom options.</p>
+                        <div class="input-group">
+                            <label for="length3">Password Length:</label>
+                            <input type="number" id="length3" min="8" max="128" value="16">
+                        </div>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" id="symbols3" checked> Include Symbols (!@#$...)</label>
+                            <label><input type="checkbox" id="uppercase3" checked> Include Uppercase (A-Z)</label>
+                            <label><input type="checkbox" id="numbers3" checked> Include Numbers (0-9)</label>
+                        </div>
+                        <button class="btn btn-primary" onclick="generatePassword()">🎲 Generate Password</button>
+                        <div class="result" id="result3"></div>
+                        <div class="explanation">
+                            <h4>💡 Cryptographic Randomness</h4>
+                            <p>Uses crypto.getRandomValues() for true randomness, not Math.random(). Each character is selected from a cryptographically secure source.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 4: Token Generation -->
+            <div class="stage" id="stage4">
+                <div class="stage-card">
+                    <div class="stage-header">
+                        <span class="stage-number">Stage 4</span>
+                        <h2>Generate Crypto Tokens</h2>
+                    </div>
+                    <div class="stage-content">
+                        <p>Generate secure tokens for API keys, session tokens, or any cryptographic purpose.</p>
+                        <div class="input-group">
+                            <label for="tokenLength4">Token Length (bytes):</label>
+                            <input type="number" id="tokenLength4" min="16" max="256" value="32">
+                        </div>
+                        <div class="radio-group">
+                            <label><input type="radio" name="encoding4" value="hex" checked> Hex Encoding</label>
+                            <label><input type="radio" name="encoding4" value="base64"> Base64 Encoding</label>
+                        </div>
+                        <button class="btn btn-primary" onclick="generateToken()">🔑 Generate Token</button>
+                        <div class="result" id="result4"></div>
+                        <div class="explanation">
+                            <h4>💡 Token Applications</h4>
+                            <p>Hex tokens are great for API keys and identifiers. Base64 tokens are more compact and URL-safe for web applications.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 5: Hashing -->
+            <div class="stage" id="stage5">
+                <div class="stage-card">
+                    <div class="stage-header">
+                        <span class="stage-number">Stage 5</span>
+                        <h2>Hash Functions</h2>
+                    </div>
+                    <div class="stage-content">
+                        <p>Learn about one-way hash functions for data integrity and password storage.</p>
+                        <div class="input-group">
+                            <label for="message5">Message to Hash:</label>
+                            <input type="text" id="message5" placeholder="Enter any message..." value="Hello, Locka!">
+                        </div>
+                        <div class="radio-group">
+                            <label><input type="radio" name="algorithm5" value="SHA-256" checked> SHA-256</label>
+                            <label><input type="radio" name="algorithm5" value="SHA-1"> SHA-1</label>
+                            <label><input type="radio" name="algorithm5" value="SHA-512"> SHA-512</label>
+                        </div>
+                        <button class="btn btn-primary" onclick="hashMessage()">🔗 Hash Message</button>
+                        <div class="result" id="result5"></div>
+                        <div class="explanation">
+                            <h4>💡 Hash Properties</h4>
+                            <p>Hashes are one-way functions: easy to compute forward, impossible to reverse. Perfect for password verification and data integrity.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stage 6: Advanced Encoding -->
+            <div class="stage" id="stage6">
+                <div class="stage-card">
+                    <div class="stage-header">
+                        <span class="stage-number">Stage 6</span>
+                        <h2>Encoding & XOR</h2>
+                    </div>
+                    <div class="stage-content">
+                        <p>Master data encoding and XOR operations for obfuscation.</p>
+                        <div class="input-group">
+                            <label for="data6">Data to Encode:</label>
+                            <input type="text" id="data6" placeholder="Enter some data..." value="Secret Data">
+                        </div>
+                        <div class="button-group">
+                            <button class="btn btn-secondary" onclick="encodeBase64()">📋 Base64</button>
+                            <button class="btn btn-secondary" onclick="encodeHex()">🔢 Hex</button>
+                            <button class="btn btn-secondary" onclick="xorEncode()">⚡ XOR</button>
+                        </div>
+                        <div class="input-group" id="xorKeyGroup" style="display: none;">
+                            <label for="xorKey6">XOR Key:</label>
+                            <input type="text" id="xorKey6" placeholder="Enter XOR key..." value="mykey">
+                        </div>
+                        <div class="result" id="result6"></div>
+                        <div class="explanation">
+                            <h4>💡 Encoding vs Encryption</h4>
+                            <p>Encoding (Base64, Hex) is reversible without a key. XOR is symmetric - the same key encodes and decodes. Real encryption needs proper algorithms!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completion -->
+            <div class="stage" id="completion">
+                <div class="stage-card completion-card">
+                    <div class="completion-content">
+                        <h2>🎉 Congratulations!</h2>
+                        <p>You've mastered the basics of Locka encryption!</p>
+                        <div class="achievement">
+                            <div class="achievement-icon">🏆</div>
+                            <div class="achievement-text">
+                                <h3>Where the hell have you been "locka"?</h3>
+                                <p>You've completed all 6 stages of the Locka Playground</p>
+                            </div>
+                        </div>
+                        <div class="next-steps">
+                            <h3>What's Next?</h3>
+                            <ul>
+                                <li>Try Locka in your own projects</li>
+                                <li>Explore the CLI tool: <code>npm install -g locka</code></li>
+                                <li>
+                                Check out the
+                                <a href="https://github.com/Ghostcar5153/locka" target="_blank" rel="noopener">
+                                    GitHub repository
+                                </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary" onclick="restartPlayground()">🔄 Start Over</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="navigation">
+            <button class="btn btn-secondary" id="prevBtn" onclick="previousStage()" disabled>← Previous</button>
+            <span class="stage-indicator" id="stageIndicator">Stage 1 of 6</span>
+            <button class="btn btn-secondary" id="nextBtn" onclick="nextStage()" disabled>Next →</button>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
